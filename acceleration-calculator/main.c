@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+extern calculate_acceleration(int num_cars, float* car_matrix, int* car_accelerations);
+
 void clear_buffer()
 {
 	int c;
@@ -8,9 +10,15 @@ void clear_buffer()
 
 int main()
 {
-	float car_matrix[10000][3]; // Y x 3 matrix
-	int num_cars; // Y
-	int i, j;
+	// Y
+	int num_cars, i, j;
+
+	// Y x 3 matrix
+	float car_matrix[10000][3]; 
+
+	// Acceleration values stored as integers
+	int car_accelerations[10000]; 
+	
 
 	printf("Number of Cars: ");
 	while (scanf_s("%d", &num_cars) != 1)
@@ -60,5 +68,13 @@ int main()
 		printf("\n");
 	}
 
+	printf("\n*------- Answer -------*\n");
+	calculate_acceleration(num_cars, car_matrix, car_accelerations);
+
+	for (i = 0; i < num_cars; i++)
+	{
+		printf("%d\n", car_accelerations[i]);
+	}
+	
 	return 0;
 }
