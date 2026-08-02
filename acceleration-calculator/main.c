@@ -31,7 +31,7 @@ int main()
 
 	for(i = 0; i < num_cars; i++)
 	{
-		printf("*------- CAR %d -------*\n", i + 1);
+		printf("*---------- CAR %d ----------*\n", i + 1);
 		
 		printf("Initial Velocity (KM/H): ");
 		while (scanf_s("%f", &car_matrix[i][0]) != 1)
@@ -58,7 +58,7 @@ int main()
 		}
 	}
 
-	printf("\n*------- CAR MATRIX -------*\n");
+	printf("\n*-------- CAR MATRIX --------*\n");
 	for(i = 0; i < num_cars; i++)
 	{
 		for(j = 0; j < 3; j++)
@@ -68,12 +68,12 @@ int main()
 		printf("\n");
 	}
 
-	printf("\n*------- Answer -------*\n");
+	printf("\n*------- ACCELERATION -------*\n");
 	calculate_acceleration(num_cars, car_matrix, car_accelerations);
 
 	for (i = 0; i < num_cars; i++)
 	{
-		printf("%d\n", car_accelerations[i]);
+		printf("Car %d: %d m/s^2\n", i+1, car_accelerations[i]);
 	}
 	
 	return 0;
