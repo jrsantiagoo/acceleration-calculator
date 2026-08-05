@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-extern calculate_acceleration(int num_cars, float* car_matrix, int* car_accelerations);
+extern void calculate_acceleration(int num_cars, float* car_matrix, int* car_accelerations);
 
 void clear_buffer()
 {
