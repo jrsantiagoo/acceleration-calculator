@@ -62,16 +62,6 @@ int run_interactive()
 		}
 	}
 
-	printf("\n*------------- CAR MATRIX -------------*\n");
-	for (i = 0; i < num_cars; i++)
-	{
-		for (j = 0; j < 3; j++)
-		{
-			printf("%f ", car_matrix[i][j]);
-		}
-		printf("\n");
-	}
-
 	printf("\n*------------ ACCELERATION ------------*\n");
 	calculate_acceleration(num_cars, car_matrix, car_accelerations);
 

@@ -1,5 +1,7 @@
 # Car Acceleration Calculator (C + x86-64 Assembly)
 
+> Author: Juan Ramon B. Santiago
+
 An x86-to-C interface programming project that calculates the acceleration of multiple cars given its Initial Velocity (Vi), Final Veolocity (Vf), and Time (T). Input collection and output printing are handled
 in C; the actual unit conversion, acceleration calculation, and float-to-integer conversion are performed in a hand-written x86-64 assembly function using scalar SIMD floating-point instructions (`movss`, `subss`, `divss`, `cvtss2si`).
 
