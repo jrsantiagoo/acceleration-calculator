@@ -5,6 +5,8 @@
 An x86-to-C interface programming project that calculates the acceleration of multiple cars given its Initial Velocity (Vi), Final Veolocity (Vf), and Time (T). Input collection and output printing are handled
 in C; the actual unit conversion, acceleration calculation, and float-to-integer conversion are performed in a hand-written x86-64 assembly function using scalar SIMD floating-point instructions (`movss`, `subss`, `divss`, `cvtss2si`).
 
+**Demo Video**: https://drive.google.com/file/d/1FSF1eQ0GZ4ifLvMlJgC3sGvr_i5gYpf7/view?usp=sharing
+
 ## Formula
 
 ```
@@ -17,8 +19,7 @@ Where:
 - **Vf** - Final Velocity (KM/H)
 - **T** - Time (seconds)
 
-Velocities are converted from KM/H to M/S (divided by 3.6) inside the assembly
-function before the acceleration is computed. The final result is rounded to the
+Velocities are converted from KM/H to M/S (divided by 3.6) inside the assembly function before the acceleration is computed. The final result is rounded to the
 nearest integer.
 
 ## Project Structure
@@ -172,7 +173,3 @@ Exercises positive, zero, and negative results together in a single run.
 
 **Actual Output:**
 ![Test 5](screenshots/test5.png)
-
-## Demo Video
-
-_(To be filled in — link to a 5–10 minute video showing source code, compilation, and execution of both the C and x86-64 program)_
