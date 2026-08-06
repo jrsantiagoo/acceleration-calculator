@@ -65,7 +65,20 @@ Time (S): 10.1
 
 ## Performance Results
 
-_(To be filled in — execution time table and short analysis for Y = 10, 100, 1000, 10000)_
+| Y (cars) | Trials | Avg Time (ms) |
+| -------- | ------ | ------------- |
+| 10       | 30     | 0.000087      |
+| 100      | 30     | 0.000960      |
+| 1,000    | 30     | 0.007957      |
+| 10,000   | 30     | 0.057153      |
+
+### Analysis
+
+The results show clear linear-time scaling with the number of cars, consistent with the assembly function's single O(n) loop over rows with no nested iteration. Execution time grows from 0.000087 ms at Y=10 to 0.057153 ms at Y=10,000, roughly a 657x increase for a 1000x increase in input size, meaning the per-car cost actually gets slightly cheaper as Y grows (each 10x increase in Y yields only an 8x to 11x increase in time rather than a full 10x). This is expected behavior: at small Y, fixed overhead (the function call itself, warm-up effects, and timer resolution) makes up a larger share of the measured time, while at larger Y that overhead is amortized across more iterations and the timing better reflects the true per-element cost of the scalar SIMD instructions (`movss`, `subss`, `divss`, `cvtss2si`). The consistently sub-millisecond times even at Y=10,000 also reflect that the entire input (120KB for the matrix) comfortably fits in cache, so the loop is not memory-bandwidth-bound.
+
+### Program Output
+
+![Benchmark](screenshots/benchmark.png)
 
 ## Correctness Check
 

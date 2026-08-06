@@ -135,11 +135,13 @@ int run_benchmark_suite()
 	srand((unsigned int)time(NULL));
 
 	int size;
-	printf("\n*======= ASM Function Benchmark =======*\n");
-	printf("Input size (Max: 10000): ");
-	scanf_s("%d", &size);
-
-	run_benchmark(size, 30);
+	do {
+		printf("\n*======= ASM Function Benchmark =======*\n");
+		printf("Input size (Max: 10000, Exit: -1): ");
+		scanf_s("%d", &size);
+		if (size != -1)
+			run_benchmark(size, 30);
+	} while (size != -1);
 
 	return 0;
 }
