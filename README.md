@@ -26,25 +26,6 @@ nearest integer.
 | `main.c`                      | C driver program. Handles user input, memory allocation, calls into the assembly function, and prints results.                                     |
 | `acceleration_calculator.asm` | x86-64 NASM assembly function that performs the KM/H to M/S conversion, computes acceleration for each car, and converts the result to an integer. |
 
-## Functionality
-
-The program has two modes, selectable from a menu on launch:
-
-**1. Interactive Mode**
-
-- Prompts for the number of cars (Y) and, for each car, its Initial Velocity, Final Velocity, and Time.
-- Validates all numeric input (re-prompts on invalid entries).
-- Displays the collected Y × 3 input matrix.
-- Calls the assembly function to compute acceleration for every car.
-- Prints the resulting acceleration (in m/s²) for each car.
-
-**2. Benchmark Mode**
-
-- Prompts for an input size (Y), up to 10,000 cars.
-- Randomly generates plausible test data (Vi, Vf, T) for Y cars.
-- Runs one untimed warm-up call, then times 30 calls to the assembly function using `QueryPerformanceCounter` (high-resolution Windows timer).
-- Reports the average execution time (in milliseconds) across the 30 runs.
-
 ## How to Run
 
 ### Requirements
@@ -88,7 +69,94 @@ _(To be filled in — execution time table and short analysis for Y = 10, 100, 1
 
 ## Correctness Check
 
-_(To be filled in — screenshot of program output demonstrating correct results)_
+### Test 1: Spec sample
+
+**Input:**
+
+```
+3
+0.0, 62.5, 10.1
+60.0, 122.3, 5.5
+30.0, 160.7, 7.8
+```
+
+**Expected:** `(62.5-0.0)/3.6/10.1 ≈ 1.72 → 2`, `(122.3-60.0)/3.6/5.5 ≈ 3.15 → 3`, `(160.7-30.0)/3.6/7.8 ≈ 4.65 → 5`
+Matches the worked example given directly in the spec.
+
+**Actual Output:**
+![Test 1](screenshots/test1.png)
+
+---
+
+### Test 2: Zero acceleration
+
+**Input:**
+
+```
+1
+50.0, 50.0, 5.0
+```
+
+**Expected:** `(50.0-50.0)/3.6/5.0 = 0 → 0`
+Equal initial and final velocity should produce zero acceleration.
+
+**Actual Output:**
+![Test 2](screenshots/test2.png)
+
+---
+
+### Test 3: Deceleration (negative acceleration)
+
+**Input:**
+
+```
+1
+100.0, 20.0, 8.0
+```
+
+**Expected:** `(20.0-100.0)/3.6/8.0 ≈ -2.78 → -3`
+Final velocity lower than initial velocity should produce a negative result.
+
+**Actual Output:**
+![Test 3](screenshots/test3.png)
+
+---
+
+### Test 4: Exact-half rounding tie
+
+**Input:**
+
+```
+1
+0.0, 9.0, 1.0
+```
+
+**Expected:** `(9.0-0.0)/3.6/1.0 = 2.5 → 2`
+The raw value is exactly 2.5, which rounds to the nearest even integer (2) under `cvtss2si`.
+
+**Actual Output:**
+![Test 4](screenshots/test4.png)
+
+---
+
+### Test 5: Multiple cars, mixed values
+
+**Input:**
+
+```
+5
+0.0, 45.0, 5.0
+72.0, 72.0, 3.0
+10.5, 88.3, 4.2
+150.0, 30.0, 12.0
+0.0, 0.0, 1.0
+```
+
+**Expected:** `(45.0-0.0)/3.6/5.0 = 2.5 → 2`, `(72.0-72.0)/3.6/3.0 = 0 → 0`, `(88.3-10.5)/3.6/4.2 ≈ 5.14 → 5`, `(30.0-150.0)/3.6/12.0 ≈ -2.78 → -3`, `(0.0-0.0)/3.6/1.0 = 0 → 0`
+Exercises positive, zero, and negative results together in a single run.
+
+**Actual Output:**
+![Test 5](screenshots/test5.png)
 
 ## Demo Video
 
